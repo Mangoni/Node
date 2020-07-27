@@ -25,15 +25,18 @@ const Researcher = mongoose.model
     }
 );
 
-const researcher = new Researcher(
+
+/*const researcher = new Researcher(
     {
         name: 'Max Mustermann',
         department: 'IPMT',
         boss: "Lödding"
     }
-);
+);*/
 
-researcher.save().then(() => console.log('Max Mustermann is saved'));
+/*researcher.save().then(() => console.log('Max Mustermann is saved'));
+
+ */
 
 app.get('/researchers', (req, res) => {
     Researcher.find({}, function (err, result) {
@@ -47,9 +50,14 @@ app.get('/researchers', (req, res) => {
 
 app.post('/addresearcher', (req, res) => {
     let name = req.body.name;
+    let boss = req.body.boss;
+    let department = req.body.department;
+
     const entry = new Researcher(
         {
             name: name,
+            boss: boss,
+            department: department,
         }
     );
     entry.save().then(() => console.log('Max Mustermann is saved'));
