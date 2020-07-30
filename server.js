@@ -43,7 +43,10 @@ app.get('/researchers', (req, res) => {
         if (err) {
             console.log(err)
         } else {
-            res.send(result)
+            let researchersObject = {
+                researchers_root: result
+            }
+            res.send(researchersObject)
         }
     })
 })
@@ -64,6 +67,11 @@ app.post('/addresearcher', (req, res) => {
     res.send("your entry has been saved")
 })
 
+app.post('/deleteresearcher', (req,res) => {
+    req.deleteOne({_id:req.id})
+    console.log('Researcher has been deleted.')
+    res.send("Researcher has been deleted.")
+})
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
