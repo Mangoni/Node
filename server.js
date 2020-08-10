@@ -67,8 +67,16 @@ app.post('/addresearcher', (req, res) => {
     res.send("your entry has been saved")
 })
 
-app.post('/deleteresearcher', (req,res) => {
-    req.deleteOne({_id:req.id})
+app.delete('/deleteresearcher', async (req,res) => {
+    try {
+        //await Researcher.deleteOne({ _id: req.body.id })
+       // await Researcher.deleteOne({ name: req.body.name })
+         await Researcher.deleteOne({ name: "Finn" })
+        res.status(204).send()
+    } catch {
+        res.status(404)
+        res.send({ error: "Post doesn't exist!" })
+    }
     console.log('Researcher has been deleted.')
     res.send("Researcher has been deleted.")
 })
