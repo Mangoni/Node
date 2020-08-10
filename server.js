@@ -77,7 +77,7 @@ app.delete('/deleteresearcher', async (req,res) => {
         res.status(404)
         res.send({ error: "Post doesn't exist!" })
     }
-    console.log('Researcher has been deleted.')
+    console.log('Log: Researcher has been deleted.')
     res.send("Researcher has been deleted.")
 })
 
