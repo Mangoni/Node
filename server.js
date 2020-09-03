@@ -23,20 +23,10 @@ const Researcher = mongoose.model
         department: String,
         boss: String
     }
+
+
 );
 
-
-/*const researcher = new Researcher(
-    {
-        name: 'Max Mustermann',
-        department: 'IPMT',
-        boss: "Lödding"
-    }
-);*/
-
-/*researcher.save().then(() => console.log('Max Mustermann is saved'));
-
- */
 
 app.get('/researchers', (req, res) => {
     Researcher.find({}, function (err, result) {
@@ -69,9 +59,9 @@ app.post('/addresearcher', (req, res) => {
 
 app.delete('/deleteresearcher', async (req,res) => {
     try {
-        //await Researcher.deleteOne({ _id: req.body.id })
-        //await Researcher.deleteOne({ name: req.body.name })
-         await Researcher.deleteOne({ name: "Finn" })
+        await Researcher.deleteOne({ name: req.body.name })
+        //await Researcher.deleteOne({ _id: req.body._id })
+
         res.status(204).send()
     } catch {
         res.status(404)
@@ -80,6 +70,27 @@ app.delete('/deleteresearcher', async (req,res) => {
     console.log('Log 2 : Researcher has been deleted.')
     res.send("Researcher has been deleted.")
 })
+
+app.patch('/editresearcher', async (req, res) => {
+    console.log('Log 3 : Researcher is prepared to be edited.')
+    try {
+        await Researcher.updateOne(
+            { _id: req.body._id },
+            {
+                boss: req.body.boss,
+                department: req.body.department,
+                name: req.body.name,
+            }
+            )
+        res.status(204).send()
+    } catch {
+        res.status(404)
+        res.send({ error: "Post doesn't exist!" })
+    }
+    res.send("Researcher has been edited.")
+})
+
+
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
